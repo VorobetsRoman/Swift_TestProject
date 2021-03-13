@@ -10,7 +10,8 @@ import Alamofire
 
 class VcLoginScreen: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var ui_tfPhone: UITextField!
-//    var phoneMaskSuffix = ""
+    @IBOutlet weak var ui_tfPassword: UITextField!
+    //    var phoneMaskSuffix = ""
     var phoneMaskPrefix = ""
     var phoneMask = ""
     
@@ -31,7 +32,6 @@ class VcLoginScreen: UIViewController, UITextFieldDelegate {
                             self.ui_tfPhone.text = self.phoneMaskPrefix
 //                            self.phoneMaskSuffix = String(phoneMask.suffix(from: spaceIndex))
                             self.phoneMask = phoneMask
-//                            print(phoneMask)
                         }
                     }
                 }
@@ -47,7 +47,29 @@ class VcLoginScreen: UIViewController, UITextFieldDelegate {
     
     //===============================================
     @IBAction func ui_btSignin_tui(_ sender: UIButton) {
-        performSegue(withIdentifier: "loginToLibrary", sender: Any?.self)
+        guard let phone = ui_tfPhone.text, let password = ui_tfPassword.text else { return }
+        let clearPhone = removeNonDigits(text: phone)
+        let parameters: [String: String] = [
+            "phone": clearPhone,
+            "password": password
+        ]
+        let request = AF.request("http://dev-exam.l-tech.ru/api/v1/auth", method: .post, parameters: parameters)
+        request.responseJSON { (data) in
+            switch data.result {
+            case .success(let value):
+                if let result = value as? [String: Any] {
+                    if let success = result["success"] as? Bool {
+                        if success == true {
+                            self.performSegue(withIdentifier: "loginToLibrary", sender: (Any).self)
+                        }
+                    }
+                }
+                break
+            case .failure(let error):
+                print(error)
+                break
+            }
+        }
     }
     
     
@@ -82,7 +104,7 @@ class VcLoginScreen: UIViewController, UITextFieldDelegate {
                 break
             default:
                 result.append(ch)
-                if !number[index].isNumber { //пропускаем символ в номере
+                if !(number[index].isNumber) { //пропускаем символ в номере
                     index = number.index(after: index)
                 }
                 break
@@ -103,6 +125,17 @@ class VcLoginScreen: UIViewController, UITextFieldDelegate {
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
         textField.text = formattedNumber(number: newString)
         return false
+    }
+    
+    
+    
+    //===============================================
+    func removeNonDigits( text: String) -> String {
+        var result = ""
+        for ch in text where ch.isNumber {
+            result.append(ch)
+        }
+        return result
     }
     
 }

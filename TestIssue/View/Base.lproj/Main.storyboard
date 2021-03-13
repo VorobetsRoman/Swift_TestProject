@@ -70,6 +70,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ui_tfPassword" destination="OUL-V7-K74" id="0ZA-nL-m1p"/>
                         <outlet property="ui_tfPhone" destination="GLf-VP-IkL" id="HYv-7Z-0iy"/>
                         <segue destination="9Au-6a-D4j" kind="show" identifier="loginToLibrary" id="H2G-dB-PED"/>
                     </connections>
@@ -104,7 +105,7 @@
                     <navigationItem key="navigationItem" title="Dev Exam" id="SPd-kF-P8u">
                         <barButtonItem key="rightBarButtonItem" title="Button" image="arrow.2.circlepath" catalog="system" style="plain" id="Bse-Aq-0mC">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xg9-dg-tRK">
-                                <rect key="frame" x="-23" y="-15" width="29" height="22"/>
+                                <rect key="frame" x="365" y="17" width="29" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title=" " image="arrow.2.circlepath" catalog="system"/>
                             </button>
