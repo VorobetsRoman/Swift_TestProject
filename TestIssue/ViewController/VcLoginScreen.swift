@@ -8,6 +8,19 @@
 import UIKit
 import Alamofire
 
+struct Credentials {
+    var phonenumber: String
+    var password: String
+}
+
+enum KeychainError: Error {
+    case noPassword
+    case unespectedPasswordData
+    case unhadledError(status: OSStatus)
+}
+
+let appname = "TestIssue"
+
 class VcLoginScreen: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var ui_tfPhone: UITextField!
     @IBOutlet weak var ui_tfPassword: UITextField!
@@ -64,6 +77,23 @@ class VcLoginScreen: UIViewController, UITextFieldDelegate {
                         }
                     }
                 }
+                
+                let account = clearPhone
+                let kpassword = password.data(using: String.Encoding.utf8)
+                let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
+                                            kSecAttrAccount as String: account,
+                                            kSecAttrServer as String: appname,
+                                            kSecValueData as String: kpassword]
+                var ref: AnyObject?
+                let status = SecItemAdd(query as CFDictionary, &ref)
+                let result = ref as! Data
+                print(status)
+                let password = String(data: result, encoding: .utf8)!
+                print("Password: \(password)")
+//                guard status = errSecSuccess else {print( KeychainError.unhandledError(status: status))}
+//                result.forEach { key, value in
+//                  print("\(key): \(value)")
+//                }
                 break
             case .failure(let error):
                 print(error)
