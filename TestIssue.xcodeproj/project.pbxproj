@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		8768EDC025FBC83800858B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8768EDBF25FBC83800858B47 /* Assets.xcassets */; };
 		8768EDC325FBC83800858B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8768EDC125FBC83800858B47 /* LaunchScreen.storyboard */; };
 		8768EDD125FBCCAA00858B47 /* VcLoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8768EDD025FBCCAA00858B47 /* VcLoginScreen.swift */; };
+		87D2A62925FE42A800824A7A /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D2A62825FE42A800824A7A /* KeyChain.swift */; };
 		9D5A6A3F037374E9BBC6A230 /* Pods_TestIssue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CB6E28F0FB87679983C50D /* Pods_TestIssue.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 		8768EDC225FBC83800858B47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8768EDC425FBC83800858B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8768EDD025FBCCAA00858B47 /* VcLoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VcLoginScreen.swift; sourceTree = "<group>"; };
+		87D2A62825FE42A800824A7A /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		9BEA2025ED4663C7D51E61EE /* Pods-TestIssue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestIssue.release.xcconfig"; path = "Target Support Files/Pods-TestIssue/Pods-TestIssue.release.xcconfig"; sourceTree = "<group>"; };
 		C2CB6E28F0FB87679983C50D /* Pods_TestIssue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestIssue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -48,7 +50,6 @@
 				2C21D2FA99A957A7D4E2812E /* Pods-TestIssue.debug.xcconfig */,
 				9BEA2025ED4663C7D51E61EE /* Pods-TestIssue.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -81,12 +82,12 @@
 		8768EDB525FBC83400858B47 /* TestIssue */ = {
 			isa = PBXGroup;
 			children = (
-				8768EDB625FBC83400858B47 /* AppDelegate.swift */,
-				8768EDB825FBC83400858B47 /* SceneDelegate.swift */,
-				8768EDCB25FBC84500858B47 /* View */,
-				8768EDCC25FBC85900858B47 /* Controller */,
-				8768EDBF25FBC83800858B47 /* Assets.xcassets */,
 				8768EDC425FBC83800858B47 /* Info.plist */,
+				87D2A62725FE428900824A7A /* Helpers */,
+				87D2A62625FE3F0700824A7A /* Contoller */,
+				87D2A62525FE3EDE00824A7A /* Resource */,
+				8768EDCB25FBC84500858B47 /* View */,
+				8768EDCC25FBC85900858B47 /* ViewController */,
 			);
 			path = TestIssue;
 			sourceTree = "<group>";
@@ -100,12 +101,37 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		8768EDCC25FBC85900858B47 /* Controller */ = {
+		8768EDCC25FBC85900858B47 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				8768EDD025FBCCAA00858B47 /* VcLoginScreen.swift */,
 			);
-			path = Controller;
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		87D2A62525FE3EDE00824A7A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				8768EDBF25FBC83800858B47 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		87D2A62625FE3F0700824A7A /* Contoller */ = {
+			isa = PBXGroup;
+			children = (
+				8768EDB625FBC83400858B47 /* AppDelegate.swift */,
+				8768EDB825FBC83400858B47 /* SceneDelegate.swift */,
+			);
+			path = Contoller;
+			sourceTree = "<group>";
+		};
+		87D2A62725FE428900824A7A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				87D2A62825FE42A800824A7A /* KeyChain.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8768EDB725FBC83400858B47 /* AppDelegate.swift in Sources */,
+				87D2A62925FE42A800824A7A /* KeyChain.swift in Sources */,
 				8768EDD125FBCCAA00858B47 /* VcLoginScreen.swift in Sources */,
 				8768EDB925FBC83400858B47 /* SceneDelegate.swift in Sources */,
 			);

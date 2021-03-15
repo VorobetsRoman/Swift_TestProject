@@ -54,6 +54,14 @@ class VcLoginScreen: UIViewController, UITextFieldDelegate {
             }
         }
         ui_tfPhone.delegate = self
+        
+        let phoneKey = appname + "phone"
+        let passKey = appname + "password"
+        if let phoneData = KeyChain.load(key: phoneKey), let passData = KeyChain.load(key: passKey) {
+//            let phone = phoneData.to(type: String.self)
+//            let pass = passData.to(type: String.self)
+            print("result: ", phoneData, passData)
+        }
     }
 
     
@@ -77,23 +85,28 @@ class VcLoginScreen: UIViewController, UITextFieldDelegate {
                         }
                     }
                 }
-                
-                let account = clearPhone
+                //KeyChain
+//                let phoneData = Data(from: phone)
+                let phoneKey = appname + "phone"
+                let phoneResult = KeyChain.save(key: phoneKey, string: phone)
+                print(phoneResult)
+//                let passData = Data(from: password)
+                let passKey = appname + "password"
+                let passResult = KeyChain.save(key: passKey, string: password)
+                print(passResult)
+                /*let account = clearPhone
                 let kpassword = password.data(using: String.Encoding.utf8)
                 let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
                                             kSecAttrAccount as String: account,
                                             kSecAttrServer as String: appname,
-                                            kSecValueData as String: kpassword]
+                                            kSecValueData as String: kpassword!]
                 var ref: AnyObject?
                 let status = SecItemAdd(query as CFDictionary, &ref)
                 let result = ref as! Data
                 print(status)
                 let password = String(data: result, encoding: .utf8)!
-                print("Password: \(password)")
-//                guard status = errSecSuccess else {print( KeychainError.unhandledError(status: status))}
-//                result.forEach { key, value in
-//                  print("\(key): \(value)")
-//                }
+                print("Password: \(password)")*/
+                
                 break
             case .failure(let error):
                 print(error)
