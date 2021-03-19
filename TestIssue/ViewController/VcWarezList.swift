@@ -8,15 +8,18 @@
 import UIKit
 import Alamofire
 
+
 class VcWarezList: UITableViewController {
     var m_productList: [ProductModel] = [] ///< list for information about products
-    var m_imagesList: [UIImage] = [] ///< list for images
     
     enum Sorting {
         case server
         case time
     }
     var m_sorting = Sorting.server
+    
+    
+    
     
     //===============================================
     override func viewDidLoad() {
@@ -27,7 +30,7 @@ class VcWarezList: UITableViewController {
 
     
     
-    // MARK: - Table view data source
+    // MARK: - Table view delegate
     //===============================================
     override func numberOfSections(in tableView: UITableView) -> Int {
         if isViewLoaded {
@@ -82,6 +85,15 @@ class VcWarezList: UITableViewController {
     
     
     
+    
+    //===============================================
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "WarezToCell", sender: tableView.cellForRow(at: indexPath))
+    }
+    
+    
+    
+    
     //MARK: DataReciving
     //===============================================
     func getWarez () {
@@ -120,20 +132,13 @@ class VcWarezList: UITableViewController {
             response in
             if case .success(let image) = response.result {
                 self.m_productList[productId].imageData = image
-//                let uiImage = UIImage.init(data: image)
-                let cellIndex = productId + 1
-//                let cell = self.tableView.cellForRow(at: IndexPath.init(row: cellIndex, section: 0)) as! CellWarezList
-//                cell.ui_cellImage.image = uiImage
-                
-                if cellIndex < (self.m_productList.count - 1) {
-                    self.getImage(productId: cellIndex)
-                } else {
-                    self.tableView.reloadData()
-                }
-//                break
-//            case .failure(let error):
-//                print(error)
-//                break
+            }
+//            let cellIndex = productId + 1
+            
+            if productId < (self.m_productList.count - 1) {
+                self.getImage(productId: productId + 1)
+            } else {
+                self.tableView.reloadData()
             }
         }
     }
@@ -142,5 +147,20 @@ class VcWarezList: UITableViewController {
     
     
     //===============================================
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "WarezToCell" else {return}
+        guard let destination = segue.destination as? VcWarezDesc else {return}
+        if let cell = sender as? UITableViewCell {
+            let index = tableView.indexPath(for: cell)!.row - 1
+            print(index)
+            destination.m_desc = m_productList[index].text
+            destination.m_title = m_productList[index].title
+            destination.m_imageData = m_productList[index].imageData
+        }
+    }
     
+    
+    
+    
+    //===============================================
 }

@@ -8,22 +8,25 @@
 import UIKit
 
 class VcWarezDesc: UIViewController {
-
+    @IBOutlet weak var ui_Image: UIImageView!
+    @IBOutlet weak var ui_title: UILabel!
+    @IBOutlet weak var ui_desc: UILabel!
+    
+    var m_imageData: Data!
+    var m_title: String!
+    var m_desc: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        if let image = m_imageData {
+            ui_Image.image = UIImage.init(data: image)
+        }
+        if let title = m_title {
+            ui_title.text = title
+        }
+        if let desc = m_desc {
+            ui_desc.text = desc
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
