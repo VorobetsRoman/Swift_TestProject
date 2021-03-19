@@ -13,7 +13,7 @@ struct ProductModel {
     var text: String
     var image: String
     var sort: Int
-    var date: String
+    var date: Date
     var imageData: Data
     
     init(jsonDic : NSDictionary) {
@@ -22,7 +22,14 @@ struct ProductModel {
         self.text = (jsonDic["text"] != nil ? jsonDic["text"] as? String : nil)!
         self.image = (jsonDic["image"] != nil ? jsonDic["image"] as? String : nil)!
         self.sort = (jsonDic["sort"] != nil ? jsonDic["sort"] as? Int : nil)!
-        self.date = (jsonDic["date"] != nil ? jsonDic["date"] as? String : nil)!
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-ddThh:mm:ss"
+        if let dateString = jsonDic["date"] as? String {
+            self.date = formatter.date(from: dateString) ?? Date()
+        } else {
+            self.date = Date()
+        }
+//        self.date = (jsonDic["date"] != nil ? jsonDic["date"] as? String : nil)!
         self.imageData = Data()
     }
     

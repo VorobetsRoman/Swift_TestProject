@@ -73,7 +73,9 @@ class VcWarezList: UITableViewController, SortingDelegate {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "warezCell", for: indexPath) as! CellWarezList
             let product = m_productList[indexPath.row - 1]
-            cell.ui_cellTime.text = product.date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy, hh:mm"
+            cell.ui_cellTime.text = formatter.string(from: product.date)
             cell.ui_cellTitle.text = product.title
             cell.ui_cellDettext.text = product.text
             if let image = UIImage.init(data: product.imageData) {
@@ -113,11 +115,11 @@ class VcWarezList: UITableViewController, SortingDelegate {
                 if let objJson = response.value as! NSArray? {
                     for element in objJson {
                         let data = element as! NSDictionary
-                        if let id = data["id"] as? String {
-                            print(id)
-                        }
+//                        if let id = data["id"] as? String {
+//                            print(id)
+//                        }
                         let product = ProductModel(jsonDic: data)
-                        print(product.title)
+//                        print(product.title)
                         self.m_productList.append(product)
                     }
                 }
@@ -131,6 +133,7 @@ class VcWarezList: UITableViewController, SortingDelegate {
                 break
             }
         }
+        setReloadOnTimer()
     }
     
     
@@ -185,7 +188,7 @@ class VcWarezList: UITableViewController, SortingDelegate {
     //===============================================
     func setSortingType(sortingType: Sorting) {
         m_sorting = sortingType
-        print(sortingType)
+        sortList()
         self.tableView.reloadData()
     }
     
@@ -193,4 +196,18 @@ class VcWarezList: UITableViewController, SortingDelegate {
     
     
     //===============================================
+    @IBAction func on_uiBarButReload_tui(_ sender: UIButton) {
+        getWarez()
+    }
+    
+    
+    
+    
+    //===============================================
+    func setReloadOnTimer() {
+        Timer.scheduledTimer(withTimeInterval: 20, repeats: false) {
+            timer in
+            self.getWarez()
+        }
+    }
 }

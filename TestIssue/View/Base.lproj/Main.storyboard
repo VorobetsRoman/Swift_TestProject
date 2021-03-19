@@ -196,6 +196,9 @@
                                 <rect key="frame" x="345" y="17" width="29" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title=" " image="arrow.triangle.2.circlepath" catalog="system"/>
+                                <connections>
+                                    <action selector="on_uiBarButReload_tui:" destination="fUW-hQ-tuT" eventType="touchUpInside" id="mDx-Kw-rHD"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
