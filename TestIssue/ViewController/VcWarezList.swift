@@ -110,6 +110,7 @@ class VcWarezList: UITableViewController, SortingDelegate {
     func getWarez () {
         AF.request("http://dev-exam.l-tech.ru/api/v1/posts", method: .get).responseJSON {
             response in
+            self.m_productList.removeAll()
             switch response.result {
             case .success:
                 if let objJson = response.value as! NSArray? {
