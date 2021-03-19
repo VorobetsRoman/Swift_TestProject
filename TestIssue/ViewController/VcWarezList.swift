@@ -9,13 +9,20 @@ import UIKit
 import Alamofire
 
 
-class VcWarezList: UITableViewController {
-    var m_productList: [ProductModel] = [] ///< list for information about products
+enum Sorting {
+    case server
+    case time
+}
+
+
+protocol SortingDelegate: class {
+    func setSortingType(sortingType: Sorting)
+}
+
+
+class VcWarezList: UITableViewController, SortingDelegate {
     
-    enum Sorting {
-        case server
-        case time
-    }
+    var m_productList: [ProductModel] = [] ///< list for information about products
     var m_sorting = Sorting.server
     
     
@@ -59,7 +66,9 @@ class VcWarezList: UITableViewController {
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "sortCell", for: indexPath)
-            
+            if let sortCell = cell as? CellSortSelection {
+                sortCell.delegate = self
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "warezCell", for: indexPath) as! CellWarezList
@@ -112,6 +121,7 @@ class VcWarezList: UITableViewController {
                         self.m_productList.append(product)
                     }
                 }
+                self.sortList()
                 
                 self.tableView.reloadData()
                 self.getImage(productId: 0)
@@ -133,7 +143,6 @@ class VcWarezList: UITableViewController {
             if case .success(let image) = response.result {
                 self.m_productList[productId].imageData = image
             }
-//            let cellIndex = productId + 1
             
             if productId < (self.m_productList.count - 1) {
                 self.getImage(productId: productId + 1)
@@ -152,11 +161,32 @@ class VcWarezList: UITableViewController {
         guard let destination = segue.destination as? VcWarezDesc else {return}
         if let cell = sender as? UITableViewCell {
             let index = tableView.indexPath(for: cell)!.row - 1
-            print(index)
             destination.m_desc = m_productList[index].text
             destination.m_title = m_productList[index].title
             destination.m_imageData = m_productList[index].imageData
         }
+    }
+    
+    
+    
+    
+    //===============================================
+    func sortList() {
+        if self.m_sorting == .server {
+            self.m_productList.sort{$0.sort > $1.sort}
+        } else {
+            self.m_productList.sort{$0.date > $1.date}
+        }
+    }
+    
+    
+    
+    
+    //===============================================
+    func setSortingType(sortingType: Sorting) {
+        m_sorting = sortingType
+        print(sortingType)
+        self.tableView.reloadData()
     }
     
     

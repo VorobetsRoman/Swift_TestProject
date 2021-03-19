@@ -104,6 +104,9 @@
                                                 <segment title="Server sort"/>
                                                 <segment title="By date sort"/>
                                             </segments>
+                                            <connections>
+                                                <action selector="on_uiSortSc_vc:" destination="dVs-5L-xcT" eventType="valueChanged" id="210-P6-7lV"/>
+                                            </connections>
                                         </segmentedControl>
                                     </subviews>
                                     <constraints>
@@ -112,6 +115,9 @@
                                         <constraint firstItem="F5V-Sf-CeF" firstAttribute="centerX" secondItem="FyR-gk-1is" secondAttribute="centerX" id="xWO-HL-ECc"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="ui_sort_sc" destination="F5V-Sf-CeF" id="9TO-2H-wdh"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="warezCell" id="Dqr-f3-udP" customClass="CellWarezList" customModule="TestIssue" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="85.333332061767578" width="390" height="120.33333587646484"/>
